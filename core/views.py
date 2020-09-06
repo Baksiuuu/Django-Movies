@@ -5,8 +5,6 @@ def hello(request):
     return render(
         request,
         template_name = 'hello.html',
-        context = {'adjectives': ['beautiful', 'cruel', 'wonderful']}
+        context = {'adjectives': [14, 56 , 43, 94, 12, 3, 113]}
     )
 
-# def hello(request):
-#     return HttpResponse('Siema mordo!')

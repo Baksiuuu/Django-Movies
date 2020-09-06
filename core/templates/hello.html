@@ -5,11 +5,14 @@
     <title>Hello, world</title>
 </head>
 <body>
-    <h1>Hello, my friend...</h1>
+    <h1>Siema, zobaczmy za ile będzie Elon...</h1>
     {% for adjective in adjectives %}
-        {% if adjective != 'cruel' %}
-            <p>This is a {{ adjective }} world....</p>
+        {% if adjective < 100 %}
+            <p>Elon będzie za {{ adjective }} minut....</p>
         {% endif %}
     {% endfor %}
+
+    <img src="https://ocdn.eu/images/pulscms/NmI7MDA_/5cee02b44ffccf9caaa0ac1b5b9e8ed8.jpeg" width="50%">
+
 </body>
 </html>
