@@ -26,6 +26,15 @@ class Director(models.Model):
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
+class Countries(models.Model):
+    country = models.CharField(max_length = 50, null = True, blank = True)
+
+    class Meta:
+        ordering = ['country']
+
+    def __str__(self):
+        return f'{self.country}'
+
 class Movie(models.Model):
     title = models.CharField(max_length = 120)
     rating = models.IntegerField(
@@ -37,6 +46,7 @@ class Movie(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     genre = models.ForeignKey(Genre, null = True, on_delete = models.SET_NULL)
     director = models.ForeignKey(Director, null = True, on_delete = models.SET_NULL)
+    country = models.ManyToManyField(Countries, related_name='Movies')
 
     class Meta:
         unique_together = ('title', 'director', 'released')
