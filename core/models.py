@@ -10,16 +10,31 @@ age_choices = (
 
 
 class Genre(models.Model):
-    name = models.CharField(max_length=20, unique=True)
-    age_limit = models.IntegerField(null=True, blank=True, choices=age_choices)
+    name = models.CharField(
+        max_length=20,
+        unique=True
+    )
+    age_limit = models.IntegerField(
+        null=True,
+        blank=True,
+        choices=age_choices
+    )
 
     def __str__(self):
         return f'{self.name} with age limit set on {self.age_limit}'
 
 
 class Director(models.Model):
-    first_name = models.CharField(max_length=50, null=True, blank=True)
-    last_name = models.CharField(max_length=50, null=True, blank=True)
+    first_name = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True
+    )
+    last_name = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True
+    )
 
     class Meta:
         unique_together = ('first_name', 'last_name')
@@ -29,10 +44,15 @@ class Director(models.Model):
 
 
 class Country(models.Model):
-    country = models.CharField(max_length=50, null=True, blank=True, unique = True)
+    country = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True,
+        unique = True
+    )
 
     class Meta:
-        ordering = ['country']
+        ordering = ['country',]
 
     def __str__(self):
         return f'{self.country}'
@@ -41,15 +61,30 @@ class Country(models.Model):
 class Movie(models.Model):
     title = models.CharField(max_length=120)
     rating = models.IntegerField(
-        null=True, validators=[MaxValueValidator(10), MinValueValidator(1)]
+        null=True,
+        validators=[MaxValueValidator(10), MinValueValidator(1)]
     )
 
     released = models.DateField(null=True)
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField(
+        null=True,
+        blank=True
+    )
     created = models.DateTimeField(auto_now_add=True)
-    genre = models.ForeignKey(Genre, null=True, on_delete=models.SET_NULL)
-    director = models.ForeignKey(Director, null=True, on_delete=models.SET_NULL)
-    countries = models.ManyToManyField(Country, related_name='Movies')
+    genre = models.ForeignKey(
+        Genre,
+        null=True,
+        on_delete=models.SET_NULL
+    )
+    director = models.ForeignKey(
+        Director,
+        null=True,
+        on_delete=models.SET_NULL
+    )
+    countries = models.ManyToManyField(
+        Country,
+        related_name='Movies'
+    )
 
     class Meta:
         unique_together = ('title', 'director', 'released')
