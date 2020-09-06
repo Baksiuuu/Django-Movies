@@ -15,6 +15,13 @@ class Genre(models.Model):
     def __str__(self):
         return f'{self.name} with age limit set on {self.age_limit}'
 
+class Director(models.Model):
+    first_name = models.CharField(max_length = 50)
+    last_name = models.CharField(max_length = 50)
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
 class Movie(models.Model):
     title = models.CharField(max_length = 120)
     rating = models.IntegerField(
@@ -25,6 +32,7 @@ class Movie(models.Model):
     description = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     genre = models.ForeignKey(Genre, null = True, on_delete = models.SET_NULL)
+    director = models.ForeignKey(Director, null = True, on_delete = models.SET_NULL)
 
     def __str__(self):
         return f'{self.title} from {self.released}'
