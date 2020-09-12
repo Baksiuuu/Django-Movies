@@ -1,11 +1,11 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+import model_utils
 
-age_choices = (
-    (7, 7),
-    (13, 13),
-    (16, 16),
-    (18, 18)
+AGE_CATEGORIES = model_utils.Choices(
+    (0, 'kids', 'kids'),
+    (1, 'teens', 'teens'),
+    (2, 'adults', 'adults'),
 )
 
 
@@ -14,14 +14,14 @@ class Genre(models.Model):
         max_length=20,
         unique=True
     )
-    age_limit = models.IntegerField(
+    age_category = models.IntegerField(
         null=True,
         blank=True,
-        choices=age_choices
+        choices=AGE_CATEGORIES
     )
 
     def __str__(self):
-        return f'{self.name} with age limit set on {self.age_limit}'
+        return f'{self.name} ({self.get_age_category_display()})'
 
 
 class Director(models.Model):
