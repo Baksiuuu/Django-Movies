@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from core.models import Movie
 
-def hello(request):
+def movies(request):
     return render(
         request,
-        template_name = 'hello.html',
-        context = {'adjectives': [14, 56 , 43, 94, 12, 3, 113]}
+        template_name = 'movies.html',
+        context={'movies': Movie.objects.all()},
     )
 
