@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from core.views import MovieView
+from core.views import MovieView, MovieCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', MovieView.as_view(), name = 'index'),
+    path('movie/create', MovieCreateView.as_view(success_url = 'create'), name='movie_create')
 ]
