@@ -14,12 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 
-from core.views import IndexView
+from core.views import MovieCreateView, MovieUpdateView, MovieDeleteView, MovieListView, MovieDetailView
 
+app_name = 'core'
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', IndexView.as_view(), name='index'),
-    path('core/', include('core.urls', namespace='cire'))
+    path('movie/list', MovieListView.as_view(), name='movie_list'),
+    path('movie/detail/<pk>', MovieDetailView.as_view(), name = 'movie_detail'),
+    path('movie/create', MovieCreateView.as_view(), name='movie_create'),
+    path('movie/update/<pk>', MovieUpdateView.as_view(), name='movie_update'),
+    path('movie/delete/<pk>', MovieDeleteView.as_view(), name='movie_delete')
 ]

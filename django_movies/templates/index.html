@@ -4,11 +4,15 @@
 ​
 {% block content %}
 ​
-  <ul>
-    {% for movie in object_list %}
-      <li>{% movie_format movie %}</li>
-    {% endfor %}
-  </ul>
+   <ul class="list-group">
+        {% for movie in object_list %}
+            {% if movie.genre.age_category != limits.adults %}
+                <li class="list-group-item text-center align-middle">
+                    {{ movie.title }} ({{ movie.released.year }})
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
 ​
   <nav aria-label="Page navigation example">
     <ul class="pagination">

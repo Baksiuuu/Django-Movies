@@ -1,14 +1,33 @@
 {% extends "base.html" %}
+{% load movie_extras %}
 ​
 {% block content %}
-  <ul>
-    {% for movie in object_list %}
-      <li>
-        {{ movie.title }} ({{ movie.released.year }})
-        <a href="{% url 'core:movie_detail' movie.pk %}">detail</a> /
-        <a href="{% url 'core:movie_update' movie.pk %}">update</a> /
-        <a href="{% url 'core:movie_delete' movie.pk %}">delete</a>
-      </li>
-    {% endfor %}
-  </ul>
+    <ul class="list-group">
+        {% for movie in object_list %}
+            {% if movie.genre.age_category != limits.adults %}
+                <li class="list-group-item text-center align-middle">
+                    {% movie_format movie short=True %}
+                    <div class="btn-group float-right" role="group" aria-label="Actions">
+                        <button type="button" class="btn btn-outline-warning btn-sm">
+                            <a href="{% url 'core:movie_detail' movie.pk %}" style="text-decoration: none; color: inherit;">
+                                Details
+                            </a>
+                        </button>
+
+                        <button type="button" class="btn btn-outline-success btn-sm">
+                            <a href="{% url 'core:movie_update' movie.pk %}" style="text-decoration: none; color: inherit;">
+                                Update
+                            </a>
+                        </button>
+
+                        <button type="button" class="btn btn-outline-danger btn-sm">
+                            <a href="{% url 'core:movie_delete' movie.pk %}" style="text-decoration: none; color: inherit;">
+                                Delete
+                            </a>
+                        </button>
+                    </div>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
 {% endblock %}
