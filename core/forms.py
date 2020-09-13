@@ -4,7 +4,7 @@ from datetime import date
 from django import forms
 from django.core.exceptions import ValidationError
 
-from core.models import Genre, Director, Country, Movie
+from core.models import Movie
 
 
 def capitalized_validator(value: str):

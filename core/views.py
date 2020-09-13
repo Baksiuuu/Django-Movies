@@ -2,11 +2,10 @@ from concurrent.futures._base import LOGGER
 import logging
 
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from core.forms import MovieForm
 from core.models import Movie, AGE_CATEGORIES
-
 
 # class MovieView(views.View):
 #     def get(self, request):
@@ -43,13 +42,39 @@ from core.models import Movie, AGE_CATEGORIES
 #         LOGGER.warning('Invalid data provided.')
 #         return super().form_invalid(form)
 
+logging.basicConfig(
+    filename='log.txt',
+    filemode='w',
+    level=logging.INFO,
+)
 LOGGER = logging.getLogger(__name__)
 
+
 class MovieCreateView(CreateView):
-    title = 'Add Movie'
-    templete_name = 'form.html'
+    template_name = 'form.html'
     form_class = MovieForm
-    success_url = reverse_lazy('movie_create')
+    success_url = reverse_lazy('index')
+
+    def form_invalid(self, form):
+        LOGGER.warning('Invalid data provided.')
+        return super().form_invalid(form)
+
+
+class MovieUpdateView(UpdateView):
+    model = Movie
+    template_name = 'form.html'
+    form_class = MovieForm
+    success_url = reverse_lazy('index')
+
+    def form_invalid(self, form):
+        LOGGER.warning('Invalid data provided.')
+        return super().form_invalid(form)
+
+class MovieDeleteView(DeleteView):
+    model = Movie
+    template_name = 'movie_confirm_delete.html'
+    form_class = MovieForm
+    success_url = reverse_lazy('index')
 
     def form_invalid(self, form):
         LOGGER.warning('Invalid data provided.')

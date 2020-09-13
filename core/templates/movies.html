@@ -2,11 +2,25 @@
 
 {% block content %}
     <h1>Welcome to Django Movies!</h1>
-    <ul>
+    <br />
+    <ul class="list-group">
         {% for movie in object_list %}
             {% if movie.genre.age_category != limits.adults %}
-                <li style>
-                    {{ movie.title }} ({{ movie.released.year }}) - director: {{movie.director}}, genre: {{ movie.genre.name }}, age category: {{ movie.genre.get_age_category_display }}
+                <li class="list-group-item text-center align-middle">
+                    {{ movie.title }} ({{ movie.released.year }})
+                    <div class="btn-group float-right" role="group" aria-label="Actions">
+                        <button type="button" class="btn btn-outline-success btn-sm">
+                            <a href="movie/update/{{ movie.id }}" style="text-decoration: none; color: inherit;">
+                                Update
+                            </a>
+                        </button>
+
+                        <button type="button" class="btn btn-outline-danger btn-sm">
+                            <a href="movie/delete/{{ movie.id }}" style="text-decoration: none; color: inherit;">
+                                Delete
+                            </a>
+                        </button>
+                    </div>
                 </li>
             {% endif %}
         {% endfor %}

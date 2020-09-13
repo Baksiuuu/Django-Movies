@@ -88,6 +88,7 @@ class Movie(models.Model):
 
     class Meta:
         unique_together = ('title', 'director', 'released')
+        ordering = ['title']
 
     def __str__(self):
         return f'{self.title} from {self.released}'
