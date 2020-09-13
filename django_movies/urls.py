@@ -21,5 +21,5 @@ from core.views import MovieView, MovieCreateView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', MovieView.as_view(), name = 'index'),
-    path('movie/create', MovieCreateView.as_view(success_url = 'create'), name='movie_create')
+    path('movie/create', MovieCreateView.as_view(), name='movie_create')
 ]
