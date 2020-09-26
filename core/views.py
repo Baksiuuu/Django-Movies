@@ -93,6 +93,4 @@ class MovieDetailView(DetailView):
     template_name = 'movie_detail.html'
     model = Movie
 
-class IndexView(MovieListView):
-    template_name = 'index.html'
-    model = Movie
+

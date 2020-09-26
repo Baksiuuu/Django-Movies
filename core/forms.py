@@ -1,8 +1,9 @@
 import re
 from datetime import date
 
+from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, Submit
+from crispy_forms.layout import Layout, Row, Column, Submit, ButtonHolder, HTML
 from django import forms
 from django.core.exceptions import ValidationError
 
@@ -43,7 +44,12 @@ class MovieForm(forms.ModelForm):
             'director',
             'descripton',
             'countries',
-            Submit('submit','Submit', css_class='btn btn-outline-success')
+            FormActions(
+                HTML('<div class="btn-group btn-block" role="group" aria-label="Delete decision">'
+                     '<button type="submit" class="btn btn-outline-success">Update</button>'
+                     '<button type="button" onclick="history.go(-1);" class="btn btn-outline-danger">Cancel</button>'
+                     '</div>')
+            )
         )
 
     def clean_description(self):
