@@ -1,84 +1,52 @@
-from concurrent.futures._base import LOGGER
+
 import logging
 
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from core.forms import MovieForm
 from core.models import Movie, AGE_CATEGORIES
-
-# class MovieView(views.View):
-#     def get(self, request):
-#         return render(
-#             request,
-#             template_name = 'movies.html',
-#             context={'movies': Movie.objects.all(), 'limits': AGE_CATEGORIES},
-#     )
-# )
-
-# class MovieView(TemplateView):
-#     template_name = 'movies.html'
-#     extra_context = {'movies': Movie.objects.all(), 'limits': AGE_CATEGORIES}
-
-# class MovieCreateView(FormView):
-#     title = 'Add Movie'
-#     template_name = 'form.html'
-#     form_class = MovieForm
-#     success_url = reverse_lazy('movie_create')
-#
-#     def form_valid(self, form):
-#         result = super().form_valid(form)
-#         cleaned_data = form.cleaned_data
-#         Movie.objects.create(
-#             title = cleaned_data['title'],
-#             genre = cleaned_data['genre'],
-#             rating = cleaned_data['rating'],
-#             released = cleaned_data['released'],
-#             description = cleaned_data['description'],
-#         )
-#         return result
-#
-#     def form_invalid(self, form):
-#         LOGGER.warning('Invalid data provided.')
-#         return super().form_invalid(form)
 
 logging.basicConfig(
     filename='log.txt',
     filemode='w',
     level=logging.INFO,
 )
-LOGGER = logging.getLogger(__name__)
 
+class StaffRequiredMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_staff
 
-class MovieCreateView(CreateView):
+class MovieCreateView(LoginRequiredMixin, CreateView):
     template_name = 'form.html'
     form_class = MovieForm
     success_url = reverse_lazy('core:movie_list')
 
     def form_invalid(self, form):
-        LOGGER.warning('Invalid data provided.')
         return super().form_invalid(form)
 
 
-class MovieUpdateView(UpdateView):
+class MovieUpdateView(LoginRequiredMixin, StaffRequiredMixin, UpdateView):
     model = Movie
     template_name = 'form.html'
     form_class = MovieForm
     success_url = reverse_lazy('core:movie_list')
 
     def form_invalid(self, form):
-        LOGGER.warning('Invalid data provided.')
         return super().form_invalid(form)
 
-class MovieDeleteView(DeleteView):
+class MovieDeleteView(LoginRequiredMixin, StaffRequiredMixin, DeleteView):
     model = Movie
     template_name = 'movie_confirm_delete.html'
     form_class = MovieForm
     success_url = reverse_lazy('core:movie_list')
 
     def form_invalid(self, form):
-        LOGGER.warning('Invalid data provided.')
         return super().form_invalid(form)
+
+    def test_func(self):
+        return super().test_func() and self.request.user.is_superuser
 
 class MovieListView(ListView):
     template_name = 'movie_list.html'
