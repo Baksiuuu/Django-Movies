@@ -1,0 +1,123 @@
+[
+  {
+    "model": "core.genre",
+    "pk": 1,
+    "fields": {
+      "name": "Action",
+      "age_limit": 16
+    }
+  },
+  {
+    "model": "core.genre",
+    "pk": 2,
+    "fields": {
+      "name": "Horror",
+      "age_limit": 18
+    }
+  },
+  {
+    "model": "core.genre",
+    "pk": 3,
+    "fields": {
+      "name": "Musical",
+      "age_limit": 18
+    }
+  },
+  {
+    "model": "core.genre",
+    "pk": 4,
+    "fields": {
+      "name": "Family",
+      "age_limit": 7
+    }
+  },
+  {
+    "model": "core.director",
+    "pk": 1,
+    "fields": {
+      "first_name": "Jaroslaw",
+      "last_name": "Kaczynski"
+    }
+  },
+  {
+    "model": "core.director",
+    "pk": 2,
+    "fields": {
+      "first_name": "Patryk",
+      "last_name": "Vega"
+    }
+  },
+  {
+    "model": "core.director",
+    "pk": 4,
+    "fields": {
+      "first_name": "Adam",
+      "last_name": "MIckiewicz"
+    }
+  },
+  {
+    "model": "core.movie",
+    "pk": 1,
+    "fields": {
+      "title": "Django",
+      "rating": 10,
+      "released": "2012-03-05",
+      "description": "",
+      "created": "2020-09-05T12:33:13.090Z",
+      "genre": 1,
+      "director": 1
+    }
+  },
+  {
+    "model": "core.movie",
+    "pk": 2,
+    "fields": {
+      "title": "Harry Potter",
+      "rating": 1,
+      "released": "2007-06-12",
+      "description": "Little boy with big stick",
+      "created": "2020-09-05T12:50:57.064Z",
+      "genre": 4,
+      "director": 2
+    }
+  },
+  {
+    "model": "core.movie",
+    "pk": 4,
+    "fields": {
+      "title": "High School Musical",
+      "rating": 1,
+      "released": "2008-02-08",
+      "description": "",
+      "created": "2020-09-05T12:51:20.683Z",
+      "genre": 3,
+      "director": 1
+    }
+  },
+  {
+    "model": "core.movie",
+    "pk": 5,
+    "fields": {
+      "title": "London on fire",
+      "rating": 5,
+      "released": "2012-09-14",
+      "description": "",
+      "created": "2020-09-05T12:51:20.683Z",
+      "genre": 2,
+      "director": 2
+    }
+  },
+  {
+    "model": "core.movie",
+    "pk": 6,
+    "fields": {
+      "title": "W pustyni i w puszczy",
+      "rating": 10,
+      "released": "2020-09-06",
+      "description": "1 guy 1 girl",
+      "created": "2020-09-05T13:38:25.692Z",
+      "genre": 2,
+      "director": 4
+    }
+  }
+]
